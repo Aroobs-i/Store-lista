@@ -1,13 +1,19 @@
 "use client";
 
-import { avatarPlaceholderUrl, navItems } from '@/constants'
+import { navItems } from '@/constants'
 import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-const SideBar = () => {
+interface Props {
+  fullName: string;
+  avatar: string;
+  email: string;
+}
+
+const SideBar = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
   return (
     <aside className='sidebar'>
@@ -62,7 +68,7 @@ const SideBar = () => {
 
           <div className='sidebar-user-info'>
             <Image
-              src={avatarPlaceholderUrl}
+              src={avatar}
               alt='avatar'
               width={44}
               height={44}
