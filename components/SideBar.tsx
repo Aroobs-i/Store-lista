@@ -14,7 +14,9 @@ interface Props {
 }
 
 const SideBar = ({ fullName, avatar, email }: Props) => {
+
   const pathname = usePathname();
+
   return (
     <aside className='sidebar'>
         <Link href='/'>
@@ -33,6 +35,7 @@ const SideBar = ({ fullName, avatar, email }: Props) => {
           className='lg:hidden'
           />
         </Link>
+
         <nav className='sidebar-nav'>
             <ul className='flex flex-1 flex-col gap-6'>
               {navItems.map(({ url, name, icon }) => (
@@ -58,6 +61,7 @@ const SideBar = ({ fullName, avatar, email }: Props) => {
               ))}
             </ul>
         </nav>
+        
         <Image
           src='/assets/images/files-2.png'
           alt='files'
@@ -74,6 +78,7 @@ const SideBar = ({ fullName, avatar, email }: Props) => {
               height={44}
               className='sidebar-user-avatar'
               />
+
               <div className='hidden lg:block'>
                 <p className='subtitle-2 capitalize'>{fullName}</p>
                 <p className='caption'>{email}</p>
