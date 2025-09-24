@@ -42,7 +42,7 @@ const FileUploader = ({ ownerId, accountId, className}: Props) => {
             className: 'error-toast',
           });
         }
-        
+
         return uploadFile({ file, ownerId, accountId, path }).then((uploadedFile) => {
           if(uploadedFile) {
             setFiles((prevFiles) =>
@@ -65,8 +65,8 @@ const FileUploader = ({ ownerId, accountId, className}: Props) => {
   }
 
     return (
-      <div {...getRootProps} className="cursor-pointer">
-        <input {...getInputProps}/>
+      <div {...getRootProps()} className="cursor-pointer">
+        <input {...getInputProps()}/>
 
         <Button type="button" className={cn('uploader-button', className)}>
           <Image 
