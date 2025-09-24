@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     },
   },
   images:{
+
     remotePatterns:[
       {
         protocol: "https",
@@ -18,7 +19,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cloud.appwrite.io",
+        hostname: "fra.cloud.appwrite.io",
       }
     ]
   }
