@@ -25,14 +25,19 @@ import { Models } from "node-appwrite";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { renameFile } from "@/lib/actions/file.actions";
+import { usePathname } from "next/navigation";
+import { FileDetails } from "./ActionsModal";
 
-const ActionDropdown = ({ file }: { file: Models.Document & { bucketFileId: string; name: string } }) => {
+const ActionDropdown = ({ file }: { file: Models.Document & { name: string; extension: string; bucketFileId: string } }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [action, setAction] = useState<ActionType | null>(null);
     const [name, setName] = useState(file.name);
     const [isLoading, setIsLoading] = useState(false);
+
+    const path = usePathname();
 
     const closeAllModals = () => {
       setIsModalOpen(false);
@@ -42,7 +47,20 @@ const ActionDropdown = ({ file }: { file: Models.Document & { bucketFileId: stri
     }
 
     const handleAction = async () => {
+      if(!action) return;
+      setIsLoading(true);
+      let success = false;
 
+      const actions = {
+        rename: () => renameFile({ fileId: file.$id, name, extension: file.extension, path }),
+        share: () => console.log('Share'),
+        delete: () => console.log('Delete'),
+      };
+
+      success = await actions[action.value as keyof typeof actions]();
+      
+      if (success) closeAllModals();
+      setIsLoading(false);
     }
 
     const renderDialogContent = () => {
@@ -64,6 +82,7 @@ const ActionDropdown = ({ file }: { file: Models.Document & { bucketFileId: stri
                     onChange={(e) => setName(e.target.value)}
                   />
                 )}
+                {value && 'details' && <FileDetails file={file} />}
               </DialogHeader>
 
               {['rename', 'delete', 'share'].includes(value) && (
