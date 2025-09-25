@@ -41,7 +41,7 @@ const ActionDropdown = ({ file }: { file: Models.Document & { bucketFileId: stri
       setName(file.name);
     }
 
-    const handleActions = async () => {
+    const handleAction = async () => {
 
     }
 
@@ -68,10 +68,15 @@ const ActionDropdown = ({ file }: { file: Models.Document & { bucketFileId: stri
 
               {['rename', 'delete', 'share'].includes(value) && (
                 <DialogFooter className="flex flex-col gap-3 md:flex-row">
-                  <Button onClick={closeAllModals} className="modal-cancel-button">
+                  <Button 
+                  onClick={closeAllModals} 
+                  className="modal-cancel-button">
                     Cancel
                   </Button>
-                  <Button>
+                  <Button 
+                  onClick={handleAction}
+                  className="modal-submit-button"
+                  >
                     <p className="capitalize">{value}</p>
                     {isLoading && (
                       <Image
