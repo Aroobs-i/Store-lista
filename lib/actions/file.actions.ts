@@ -112,3 +112,26 @@ export const getFiles = async(accountId: string, type: string) => {
         
     }
 }
+
+export const updateFileUsers = async ({ fileId, emails, path }: UpdateFileUsersProps) => {
+    const { databases } = await createAdminClient();
+
+    try {
+        const updatedFile = await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.filesCollectionId,
+            fileId,
+            {
+                users: emails,
+            },
+        );
+
+        revalidatePath(path);
+        return parseStringify(updatedFile);
+        
+    } catch (error) {
+        handleError(error, "Failed to update file users.");
+        
+    }
+}
+
